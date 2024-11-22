@@ -1,0 +1,110 @@
+{
+    public interface ISmartDevice
+    {
+        void TurnOn();
+        void TurnOff();
+        void ShowStatus();
+    }
+
+    public class SmartLamp : ISmartDevice
+    {
+        public bool IsOn { get; private set; }
+        public string Color { get; private set; } = "Белый";
+
+        public void TurnOn()
+        {
+            IsOn = true;
+            Console.WriteLine("Лампа включена.");
+        }
+
+        public void TurnOff()
+        {
+            IsOn = false;
+            Console.WriteLine("Лампа выключена.");
+        }
+
+        public void ShowStatus()
+        {
+            Console.WriteLine($"Лампа {(IsOn ? "включена" : "выключена")}, цвет: {Color}.");
+        }
+
+        public void ChangeColor(string color)
+        {
+            if (IsOn)
+            {
+                Color = color;
+                Console.WriteLine($"Цвет лампы изменен на: {Color}.");
+            }
+            else
+            {
+                Console.WriteLine("Невозможно изменить цвет, лампа выключена.");
+            }
+        }
+    }
+
+    public class SmartThermostat : ISmartDevice
+    {
+        public bool IsOn { get; private set; }
+        public int Temperature { get; private set; } = 22;
+
+        public void TurnOn()
+        {
+            IsOn = true;
+            Console.WriteLine("Термостат включен.");
+        }
+
+        public void TurnOff()
+        {
+            IsOn = false;
+            Console.WriteLine("Термостат выключен.");
+        }
+
+        public void ShowStatus()
+        {
+            Console.WriteLine($"Термостат {(IsOn ? "включен" : "выключен")}, температура: {Temperature}°C.");
+        }
+
+        public void SetTemperature(int temp)
+        {
+            if (IsOn)
+            {
+                Temperature = temp;
+                Console.WriteLine($"Температура установлена на: {Temperature}°C.");
+            }
+            else
+            {
+                Console.WriteLine("Невозможно установить температуру, термостат выключен.");
+            }
+        }
+    }
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            List<ISmartDevice> devices = new List<ISmartDevice>
+            {
+                new SmartLamp(),
+                new SmartThermostat()
+            };
+
+            foreach (var device in devices)
+            {
+                device.TurnOn();
+                device.ShowStatus();
+                device.TurnOff();
+                device.ShowStatus();
+            }
+
+            SmartLamp lamp = new SmartLamp();
+            lamp.TurnOn();
+            lamp.ChangeColor("Красный");
+            lamp.ShowStatus();
+
+            SmartThermostat thermostat = new SmartThermostat();
+            thermostat.TurnOn();
+            thermostat.SetTemperature(25);
+            thermostat.ShowStatus();
+        }
+    }
+}
