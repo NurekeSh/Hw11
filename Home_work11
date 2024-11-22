@@ -1,3 +1,6 @@
+using System;
+
+namespace SmartDevicesApp
 {
     public interface ISmartDevice
     {
@@ -9,23 +12,23 @@
     public class SmartLamp : ISmartDevice
     {
         public bool IsOn { get; private set; }
-        public string Color { get; private set; } = "Белый";
+        public string Color { get; private set; } = "White";
 
         public void TurnOn()
         {
             IsOn = true;
-            Console.WriteLine("Лампа включена.");
+            Console.WriteLine("Lamp is turned on.");
         }
 
         public void TurnOff()
         {
             IsOn = false;
-            Console.WriteLine("Лампа выключена.");
+            Console.WriteLine("Lamp is turned off.");
         }
 
         public void ShowStatus()
         {
-            Console.WriteLine($"Лампа {(IsOn ? "включена" : "выключена")}, цвет: {Color}.");
+            Console.WriteLine($"Lamp is {(IsOn ? "on" : "off")}, color: {Color}.");
         }
 
         public void ChangeColor(string color)
@@ -33,11 +36,11 @@
             if (IsOn)
             {
                 Color = color;
-                Console.WriteLine($"Цвет лампы изменен на: {Color}.");
+                Console.WriteLine($"Lamp color changed to: {Color}.");
             }
             else
             {
-                Console.WriteLine("Невозможно изменить цвет, лампа выключена.");
+                Console.WriteLine("Unable to change color, lamp is off.");
             }
         }
     }
@@ -50,18 +53,18 @@
         public void TurnOn()
         {
             IsOn = true;
-            Console.WriteLine("Термостат включен.");
+            Console.WriteLine("Thermostat is turned on.");
         }
 
         public void TurnOff()
         {
             IsOn = false;
-            Console.WriteLine("Термостат выключен.");
+            Console.WriteLine("Thermostat is turned off.");
         }
 
         public void ShowStatus()
         {
-            Console.WriteLine($"Термостат {(IsOn ? "включен" : "выключен")}, температура: {Temperature}°C.");
+            Console.WriteLine($"Thermostat is {(IsOn ? "on" : "off")}, temperature: {Temperature}°C.");
         }
 
         public void SetTemperature(int temp)
@@ -69,11 +72,11 @@
             if (IsOn)
             {
                 Temperature = temp;
-                Console.WriteLine($"Температура установлена на: {Temperature}°C.");
+                Console.WriteLine($"Temperature set to: {Temperature}°C.");
             }
             else
             {
-                Console.WriteLine("Невозможно установить температуру, термостат выключен.");
+                Console.WriteLine("Unable to set temperature, thermostat is off.");
             }
         }
     }
@@ -98,12 +101,12 @@
 
             SmartLamp lamp = new SmartLamp();
             lamp.TurnOn();
-            lamp.ChangeColor("Красный");
+            lamp.ChangeColor("Red");
             lamp.ShowStatus();
 
             SmartThermostat thermostat = new SmartThermostat();
             thermostat.TurnOn();
-            thermostat.SetTemperature(25);
+            thermostat.SetTemperature(31);
             thermostat.ShowStatus();
         }
     }
